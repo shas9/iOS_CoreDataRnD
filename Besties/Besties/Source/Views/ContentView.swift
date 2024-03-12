@@ -64,7 +64,14 @@ struct ContentView: View {
         }
       }
       .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+          SortSelectionView(
+            selectedSortItem: $selectedSort,
+            sorts: FriendSort.sorts)
+          .onChange(of: selectedSort) { newValue in
+            friends.sortDescriptors = newValue.descriptors
+          }
+          
           Button {
             addViewShown = true
           } label: {

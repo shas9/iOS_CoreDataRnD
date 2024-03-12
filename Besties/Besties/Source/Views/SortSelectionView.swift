@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2024 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,56 +32,40 @@
 
 import SwiftUI
 
-struct ContentView: View {
-  @Environment(\.managedObjectContext) private var viewContext
-
-  @State private var addViewShown = false
+struct SortSelectionView: View {
+  @Binding var selectedSortItem: FriendSort
   
-  @State private var selectedSort = FriendSort.default
-
-  let viewModel = ListViewModel()
-
-  @FetchRequest(
-    sortDescriptors: FriendSort.default.descriptors,
-    animation: .default)
-  private var friends: FetchedResults<Friend>
-
+  let sorts: [FriendSort]
   var body: some View {
-    NavigationView {
-      List {
-        ForEach(friends) { friend in
-          NavigationLink {
-            AddFriendView(friendId: friend.objectID)
-          } label: {
-            FriendView(friend: friend)
-          }
-        }
-        .onDelete { indexSet in
-          viewModel.deleteItem(
-            for: indexSet,
-            section: friends,
-            viewContext: viewContext)
+    // 1
+    Menu {
+      // 2
+      Picker("Sort By", selection: $selectedSortItem) {
+        // 3
+        ForEach(sorts, id: \.self) { sort in
+          // 4
+          Text("\(sort.name)")
         }
       }
-      .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-            addViewShown = true
-          } label: {
-            Image(systemName: "plus.circle")
-          }
-        }
-      }
-      .sheet(isPresented: $addViewShown) {
-        AddFriendView()
-      }
-      .navigationTitle("Besties")
+      
+      // 5
+    } label: {
+      Label(
+        "Sort",
+        systemImage: "line.horizontal.3.decrease.circle")
     }
+    // 6
+    .pickerStyle(.inline)
+
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SortSelectionView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    @State var sort = FriendSort.default
+
+    SortSelectionView(
+      selectedSortItem: $sort,
+      sorts: FriendSort.sorts)
   }
 }

@@ -38,6 +38,30 @@ struct ContentView: View {
   @State private var addViewShown = false
   
   @State private var selectedSort = FriendSort.default
+  
+  @State private var searchTerm = ""
+  
+  var searchQuery: Binding<String> {
+    Binding {
+      // 1
+      searchTerm
+    } set: { newValue in
+      // 2
+      searchTerm = newValue
+      
+      // 3
+      guard !newValue.isEmpty else {
+        friends.nsPredicate = nil
+        return
+      }
+
+      // 4
+      friends.nsPredicate = NSPredicate(
+        format: "name contains[cd] %@",
+        newValue)
+    }
+  }
+
 
   let viewModel = ListViewModel()
 
@@ -63,6 +87,7 @@ struct ContentView: View {
             viewContext: viewContext)
         }
       }
+      .searchable(text: searchQuery)
       .toolbar {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
           SortSelectionView(

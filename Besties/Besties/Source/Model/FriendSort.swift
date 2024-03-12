@@ -36,42 +36,43 @@ struct FriendSort: Hashable, Identifiable {
   let id: Int
   let name: String
   let descriptors: [SortDescriptor<Friend>]
+  let section: KeyPath<Friend, String>
   
-  // 1
   static let sorts: [FriendSort] = [
-    // 2
     FriendSort(
       id: 0,
       name: "Meeting Place | Ascending",
-      // 3
       descriptors: [
         SortDescriptor(\Friend.meetingPlace, order: .forward),
         SortDescriptor(\Friend.name, order: .forward)
-      ]),
+      ],
+      section: \Friend.meetingPlace),
     FriendSort(
       id: 1,
       name: "Meeting Place | Descending",
       descriptors: [
         SortDescriptor(\Friend.meetingPlace, order: .reverse),
         SortDescriptor(\Friend.name, order: .forward)
-      ]),
+      ],
+      section: \Friend.meetingPlace),
     FriendSort(
       id: 2,
       name: "Meeting Date | Ascending",
       descriptors: [
         SortDescriptor(\Friend.meetingDate, order: .forward),
         SortDescriptor(\Friend.name, order: .forward)
-      ]),
+      ],
+      section: \Friend.meetingDay),
     FriendSort(
       id: 3,
       name: "Meeting Date | Descending",
       descriptors: [
         SortDescriptor(\Friend.meetingDate, order: .reverse),
         SortDescriptor(\Friend.name, order: .forward)
-      ])
+      ],
+      section: \Friend.meetingDayDescending)
   ]
 
-  // 4
   static var `default`: FriendSort { sorts[0] }
 
 }

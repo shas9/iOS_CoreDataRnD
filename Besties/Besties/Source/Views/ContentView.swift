@@ -65,27 +65,35 @@ struct ContentView: View {
 
   let viewModel = ListViewModel()
 
-  @FetchRequest(
+  @SectionedFetchRequest(
+    sectionIdentifier: FriendSort.default.section,
     sortDescriptors: FriendSort.default.descriptors,
     animation: .default)
-  private var friends: FetchedResults<Friend>
+  private var friends: SectionedFetchResults<String, Friend>
 
   var body: some View {
     NavigationView {
       List {
-        ForEach(friends) { friend in
-          NavigationLink {
-            AddFriendView(friendId: friend.objectID)
-          } label: {
-            FriendView(friend: friend)
+        ForEach(friends) { section in
+          Section(header: Text(section.id)) {
+            ForEach(section) { friend in
+              NavigationLink {
+                AddFriendView(friendId: friend.objectID)
+              } label: {
+                FriendView(friend: friend)
+              }
+            }
+            .onDelete { indexSet in
+              withAnimation {
+                viewModel.deleteItem(
+                  for: indexSet,
+                  section: section,
+                  viewContext: viewContext)
+              }
+            }
           }
         }
-        .onDelete { indexSet in
-          viewModel.deleteItem(
-            for: indexSet,
-            section: friends,
-            viewContext: viewContext)
-        }
+
       }
       .searchable(text: searchQuery)
       .toolbar {
@@ -94,7 +102,9 @@ struct ContentView: View {
             selectedSortItem: $selectedSort,
             sorts: FriendSort.sorts)
           .onChange(of: selectedSort) { newValue in
-            friends.sortDescriptors = newValue.descriptors
+            let request = friends
+            request.sectionIdentifier = newValue.section
+            request.sortDescriptors = newValue.descriptors
           }
           
           Button {

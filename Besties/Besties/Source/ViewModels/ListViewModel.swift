@@ -36,7 +36,7 @@ import SwiftUI
 struct ListViewModel {
   func deleteItem(
     for indexSet: IndexSet,
-    section: FetchedResults<Friend>,
+    section: SectionedFetchResults<String, Friend>.Element,
     viewContext: NSManagedObjectContext
   ) {
     indexSet.map { section[$0] }.forEach(viewContext.delete)

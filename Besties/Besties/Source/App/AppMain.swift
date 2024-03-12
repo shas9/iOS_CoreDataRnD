@@ -34,14 +34,12 @@ import SwiftUI
 
 @main
 struct AppMain: App {
-  let persistenceManager = PersistenceManager.shared
-
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environment(
           \.managedObjectContext,
-          persistenceManager.persistentContainer.viewContext)
+           PersistenceManager.shared.persistentContainer.viewContext)
         .onAppear {
           addTestFriends()
         }

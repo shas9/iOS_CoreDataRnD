@@ -33,7 +33,7 @@ class ViewModel: ObservableObject {
     }
     
     func toggleFavorite(note: Note) {
-        dataService.update(entity: note, isFavorite: !noteIsFavorite)
+        dataService.update(entity: note, isFavorite: !note.isFavorite)
         getAllNotes()
     }
     

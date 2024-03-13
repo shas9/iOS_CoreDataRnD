@@ -45,4 +45,71 @@ class PersistentContainer {
             }
         }
     }
+    
+    func create(title: String, body: String, isFavorite: Bool) {
+        let entity = Note(context: container.viewContext)
+        
+        entity.id = UUID()
+        entity.title = title
+        entity.body = body
+        entity.isFavorite = isFavorite
+        entity.createdAt = Date()
+        
+        saveChanges()
+    }
+    
+    func read(predicateFormat: String? = nil, fetchLimit: Int? = nil) ->[Note] {
+        // For saving fetched notes
+        var results: [Note] = []
+        
+        // Init fetch request
+        let request = NSFetchRequest<Note>(entityName: "Note")
+        
+        // define filter && || limit if needed
+        if let predicateFormat {
+            request.predicate = NSPredicate(format: predicateFormat)
+        }
+        
+        if let fetchLimit {
+            request.fetchLimit = fetchLimit
+        }
+        
+        // Perform fetch with request
+        
+        do {
+            results = try container.viewContext.fetch(request)
+        } catch {
+            fatalError("Could not fetch notes from Core Data. Error: \(error)")
+        }
+        
+        return results
+    }
+    
+    func update(entity: Note, title: String? = nil, body: String? = nil, isFavorite: Bool? = nil) {
+        var hasChanges: Bool = false
+        
+        if let title {
+            entity.title = title
+            hasChanges = true
+        }
+        
+        if let body {
+            entity.body = body
+            hasChanges = true
+        }
+        
+        if let isFavorite {
+            entity.isFavorite = isFavorite
+            hasChanges = true
+        }
+        
+        if hasChanges {
+            saveChanges()
+        }
+    }
+    
+    func delete(entity: Note) {
+        container.viewContext.delete(entity)
+        saveChanges()
+    }
 }

@@ -11,6 +11,7 @@
 		1A917D7F2BA1985600009A5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A917D7E2BA1985600009A5B /* ContentView.swift */; };
 		1A917D812BA1985800009A5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A917D802BA1985800009A5B /* Assets.xcassets */; };
 		1A917D842BA1985800009A5B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A917D832BA1985800009A5B /* Preview Assets.xcassets */; };
+		1A917D8C2BA19AF100009A5B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A917D8A2BA19AF100009A5B /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		1A917D7E2BA1985600009A5B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1A917D802BA1985800009A5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A917D832BA1985800009A5B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1A917D8B2BA19AF100009A5B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				1A917D7C2BA1985600009A5B /* NotepadApp.swift */,
 				1A917D7E2BA1985600009A5B /* ContentView.swift */,
 				1A917D802BA1985800009A5B /* Assets.xcassets */,
+				1A917D8A2BA19AF100009A5B /* Model.xcdatamodeld */,
 				1A917D822BA1985800009A5B /* Preview Content */,
 			);
 			path = Notepad;
@@ -139,6 +142,7 @@
 			files = (
 				1A917D7F2BA1985600009A5B /* ContentView.swift in Sources */,
 				1A917D7D2BA1985600009A5B /* NotepadApp.swift in Sources */,
+				1A917D8C2BA19AF100009A5B /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +348,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A917D8A2BA19AF100009A5B /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1A917D8B2BA19AF100009A5B /* Model.xcdatamodel */,
+			);
+			currentVersion = 1A917D8B2BA19AF100009A5B /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = "/Users/shas9/Documents/Engineering Practice/iOS/iOS_CoreDataRnd/Notepad/Notepad/Model.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1A917D712BA1985600009A5B /* Project object */;
 }

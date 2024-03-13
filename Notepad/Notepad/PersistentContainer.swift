@@ -33,4 +33,16 @@ class PersistentContainer {
             }
         }
     }
+    
+    func saveChanges() {
+        let context = container.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                fatalError("Could not save changes to Core Data. Error: \(error)")
+            }
+        }
+    }
 }
